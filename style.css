@@ -1,0 +1,850 @@
+/* --- 1. ЖАЛПЫ ПАРАМЕТРЛЕР --- */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Montserrat', sans-serif; 
+}
+
+:root { 
+    --green: #2e7d32; 
+    --soft-green: #eef9f1; 
+    --dark: #2d3e50; 
+    --text-gray: #4a5568;
+    --white: #ffffff;
+    --border-color: #e2e8f0;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    /* Негізгі фон түсі */
+    background-color: #f8fafc; 
+    /* Градиентті дақтар */
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(46, 125, 50, 0.05) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(56, 189, 248, 0.05) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(46, 125, 50, 0.05) 0px, transparent 50%),
+        radial-gradient(at 0% 100%, rgba(56, 189, 248, 0.05) 0px, transparent 50%);
+    background-attachment: fixed; /* Скролл жасағанда фон қозғалмайды */
+}
+
+/* --- 2. НАВБАР --- */
+.navbar { 
+    width: 100%;
+    padding: 15px 0; 
+    background: var(--white); 
+    border-bottom: 1px solid #eee; 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    z-index: 1000;
+}
+
+.nav-flex { 
+    max-width: 1200px; 
+    margin: 0 auto; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 0 20px; 
+}
+
+.logo { font-size: 24px; font-weight: 800; text-decoration: none; color: var(--dark); }
+.logo span { color: var(--green); }
+
+.nav-links { 
+    display: flex; 
+    list-style: none; 
+    gap: 25px; 
+}
+
+.nav-links a { 
+    text-decoration: none; 
+    color: var(--dark); 
+    font-weight: 600; 
+    font-size: 14px; 
+    transition: 0.3s;
+}
+
+.nav-links a.active, .nav-links a:hover { color: var(--green); }
+
+/* --- 3. БАСТЫ БЕТ (HERO SECTION) --- */
+.hero { 
+    padding-top: 100px; 
+    min-height: 85vh; 
+    display: flex; 
+    align-items: center; 
+    background: linear-gradient(to bottom, var(--soft-green), var(--white)); 
+}
+
+.hero-container { 
+    max-width: 1200px; 
+    margin: 0 auto; 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    gap: 60px; 
+    padding: 0 20px; 
+}
+
+.hero-content { flex: 1.2; text-align: left; }
+.tagline { color: var(--green); font-weight: 700; font-size: 14px; text-transform: uppercase; margin-bottom: 10px; }
+.hero-content h1 { font-size: 2.8rem; font-weight: 800; line-height: 1.2; margin-bottom: 20px; }
+.description { font-size: 1.1rem; color: var(--text-gray); margin-bottom: 30px; max-width: 500px; }
+
+.highlight-box { 
+    padding: 20px 25px; 
+    border-left: 4px solid var(--green); 
+    background: rgba(46, 125, 50, 0.05); 
+    border-radius: 0 15px 15px 0;
+    margin-bottom: 30px;
+}
+
+.btn-primary, .btn-secondary {
+    padding: 12px 28px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: 0.3s;
+    display: inline-block;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary { background: var(--green); color: var(--white) !important; }
+.btn-primary:hover { background: #1b5e20; transform: translateY(-2px); }
+.btn-secondary { border: 2px solid var(--green); color: var(--green) !important; background: transparent; }
+.btn-secondary:hover { background: var(--soft-green); }
+
+.hero-image { flex: 0.8; display: flex; justify-content: flex-end; }
+.img-container { width: 350px; height: 450px; border-radius: 40px; overflow: hidden; box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+.img-container img { width: 100%; height: 100%; object-fit: cover; }
+
+/* --- 4. СІЛТЕМЕЛЕР ЖӘНЕ ГРИД ЖҮЙЕСІ --- */
+.page-title { text-align: center; margin: 40px 0; padding-top: 80px; }
+.grid { 
+    display: grid; 
+    grid-template-columns: repeat(5, 1fr); 
+    gap: 30px; 
+    max-width: 1000px; 
+    margin: 0 auto; 
+    padding: 40px 0;
+    justify-items: center; 
+}
+
+@media (max-width: 768px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+
+.card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 16px;
+    padding: 25px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    background: #ffffff;
+    border-color: #2e7d32;
+    box-shadow: 0 12px 20px rgba(46, 125, 50, 0.1);
+}
+
+.card .icon {
+    font-size: 40px;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #f1f5f9;
+    transition: 0.3s;
+}
+
+.card:hover .icon {
+    background: #e8f5e9;
+    transform: scale(1.1);
+}
+
+.card span {
+    font-weight: 600;
+    color: #1e293b;
+    font-size: 1.1rem;
+}
+/* --- 5. ШАБЛОНДАР / DASHBOARD ЖҮЙЕСІ --- */
+.dashboard-wrapper {
+    display: flex;
+    height: calc(100vh - 70px);
+    margin-top: 70px;
+    background: #f8fafc;
+    overflow: hidden;
+}
+
+/* Бүйірлік мәзір */
+.side-menu {
+    width: 300px;
+    background: white;
+    border-right: 1px solid var(--border-color);
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-label {
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: #94a3b8;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    letter-spacing: 1.5px;
+}
+
+.template-nav { list-style: none; }
+.nav-item {
+    padding: 15px 20px;
+    border-radius: 15px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #64748b;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-item i { font-size: 1.1rem; }
+.nav-item:hover { background: #f1f5f9; color: var(--green); }
+.nav-item.active { background: #e8f5e9; color: var(--green); box-shadow: 0 4px 12px rgba(46,125,50,0.1); }
+
+/* Жұмыс аймағы */
+.main-workspace {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.workspace-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.workspace-actions { display: flex; gap: 15px; }
+
+/* Редактор және Preview Grid */
+.editor-container {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+/* Форма стилі */
+.form-panel {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+    border: 1px solid var(--border-color);
+}
+
+.input-field { margin-bottom: 25px; }
+.input-field label { display: block; font-weight: 700; margin-bottom: 10px; color: var(--dark); font-size: 0.95rem; }
+.input-field input, .input-field textarea, .input-field select {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #f1f5f9;
+    border-radius: 12px;
+    background: #f8fafc;
+    font-size: 1rem;
+    transition: 0.3s;
+    outline: none;
+}
+
+.input-field textarea { height: 150px; resize: none; }
+.input-field input:focus, .input-field textarea:focus { border-color: var(--green); background: white; }
+
+/* A4 ПРЕВЬЮ ПАНЕЛІ */
+.document-preview {
+    position: sticky;
+    top: 0;
+}
+
+.page-a4 {
+    background: white;
+    width: 100%;
+    max-width: 600px;
+    min-height: 842px; /* A4 пропорциясы */
+    padding: 60px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+    border-radius: 2px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.a4-content h3 { 
+    text-align: center; 
+    margin-bottom: 40px; 
+    color: var(--green); 
+    text-transform: uppercase; 
+    letter-spacing: 2px;
+    border-bottom: 2px solid var(--green);
+    padding-bottom: 15px;
+}
+
+.a4-content p { margin-bottom: 20px; font-size: 1.05rem; border-bottom: 1px dashed #eee; padding-bottom: 10px; }
+.a4-content hr { margin: 30px 0; border: 0; border-top: 1px solid #eee; }
+
+.preview-placeholder {
+    color: #cbd5e1;
+    text-align: center;
+    margin-top: 100px;
+    font-style: italic;
+}
+
+/* Қалқымалы құралдар (Floating Tools) */
+.floating-tools {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 1000;
+}
+
+.tool-circle {
+    width: 55px;
+    height: 55px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    cursor: pointer;
+    color: var(--green);
+    font-size: 1.3rem;
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.tool-circle:hover { transform: scale(1.15) rotate(15deg); background: var(--green); color: white; }
+
+/* Түймелер */
+.btn-success { background: var(--green); color: white; border: none; padding: 12px 25px; border-radius: 12px; font-weight: 700; cursor: pointer; transition: 0.3s; }
+.btn-success:hover { background: #1b5e20; transform: translateY(-2px); }
+.btn-outline { border: 2px solid var(--green); color: var(--green); background: white; padding: 10px 22px; border-radius: 12px; font-weight: 700; cursor: pointer; transition: 0.3s; }
+.btn-outline:hover { background: var(--soft-green); }
+
+/* --- 6. МОДАЛЬДІ ТЕРЕЗЕ (Randomizer үшін) --- */
+/* Рандомайзер фоны (Overlay) */
+/* Модальді терезенің артқы фоны (қараңғылау) */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1000; /* Барлық элементтерден жоғары болуы тиіс */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(15, 23, 42, 0.7); /* Артқы жақты күңгірттеу */
+    backdrop-filter: blur(8px); /* Артқы жақты бұлыңғырлау (заманауи эффект) */
+    align-items: center;
+    justify-content: center;
+}
+
+/* Модальді терезенің ортасындағы ақ блок */
+.m-box {
+    background-color: #ffffff;
+    margin: auto;
+    padding: 40px;
+    border-radius: 24px;
+    width: 90%;
+    max-width: 600px; /* Терезенің максималды ені */
+    position: relative;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    animation: slideIn 0.3s ease-out; /* Ашылу анимациясы */
+}
+.modal-link {
+    display: inline-block;
+    background-color: #2e7d32; /* Жасыл түс */
+    color: white !important;
+    padding: 12px 25px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+    cursor: pointer;
+    z-index: 1001; /* Басқа элементтердің үстінде тұруы үшін */
+    border: none;
+}
+
+.modal-link:hover {
+    background-color: #1b5e20;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(46, 125, 50, 0.3);
+}
+/* Жабу батырмасы (X) */
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #64748b;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.close-btn:hover {
+    color: #1e293b;
+}
+
+/* Модаль ішіндегі мәтіндер */
+#m-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1e293b;
+    margin-bottom: 15px;
+}
+
+#m-desc {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #475569;
+    margin-bottom: 30px;
+}
+
+/* Ашылу анимациясы */
+@keyframes slideIn {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Рандомайзер картасы */
+.randomizer-card {
+    background: #ffffff;
+    width: 380px;
+    padding: 30px;
+    border-radius: 24px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    position: relative;
+    text-align: center;
+    border: 1px solid #f1f5f9;
+}
+
+/* Жабу батырмасы */
+.close-modal {
+    position: absolute;
+    top: 20px; right: 20px;
+    font-size: 24px;
+    color: #94a3b8;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.close-modal:hover { color: #ef4444; }
+
+/* Белгіше және тақырып */
+.icon-circle {
+    width: 60px;
+    height: 60px;
+    background: #e8f5e9;
+    color: #2e7d32;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    font-size: 24px;
+}
+
+.randomizer-header h3 {
+    margin: 0;
+    color: #1e293b;
+    font-size: 20px;
+}
+
+.randomizer-header p {
+    color: #64748b;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+/* Енгізу аймағы */
+#student-list {
+    width: 100%;
+    height: 120px;
+    margin-top: 20px;
+    padding: 12px;
+    border: 2px solid #f1f5f9;
+    border-radius: 12px;
+    resize: none;
+    font-family: inherit;
+    transition: 0.3s;
+}
+
+#student-list:focus {
+    border-color: #2e7d32;
+    outline: none;
+    background: #f8fafc;
+}
+
+/* Есім шығатын жер */
+.name-display-area {
+    margin: 20px 0;
+    padding: 20px;
+    background: #f8fafc;
+    border: 2px dashed #e2e8f0;
+    border-radius: 16px;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 700;
+    color: #2e7d32;
+    transition: all 0.3s ease;
+}
+
+/* Таңдау батырмасы */
+.btn-primary-action {
+    width: 100%;
+    padding: 14px;
+    background: #2e7d32;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-primary-action:hover {
+    background: #1b5e20;
+    transform: translateY(-5px); transition: 0.3s;
+    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.2);
+}
+
+@keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+.close { position: absolute; top: 20px; right: 25px; font-size: 28px; cursor: pointer; color: #94a3b8; }
+.random-name-display { font-size: 2rem; font-weight: 800; color: var(--green); margin: 30px 0; min-height: 60px; }
+.prompt-container {
+    display: flex;
+    min-height: 80vh;
+    background: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    margin: 20px;
+}
+
+/* Бүйірлік мәзір */
+.prompt-sidebar {
+    width: 280px;
+    background: #f8fafc;
+    border-right: 1px solid #e2e8f0;
+    padding: 20px;
+}
+
+.sidebar-header {
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    color: #64748b;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.category-list { list-style: none; padding: 0; }
+
+.cat-item {
+    padding: 12px 15px;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #475569;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.cat-item:hover { background: #e2e8f0; }
+.cat-item.active {
+    background: #2e7d32;
+    color: white;
+}
+
+/* Жұмыс аймағы */
+.prompt-content {
+    flex: 1;
+    padding: 40px;
+    background: white;
+}
+
+.input-area input {
+    width: 100%;
+    padding: 15px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    font-size: 1rem;
+}
+
+.ai-bubble {
+    background: #f1f5f9;
+    padding: 25px;
+    border-radius: 18px;
+    position: relative;
+    margin: 25px 0;
+    border-left: 5px solid #2e7d32;
+}
+
+.bubble-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #2e7d32;
+    margin-bottom: 10px;
+}
+
+.btn-copy-ai {
+    background: #2e7d32;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    width: 100%;
+    transition: 0.3s;
+}
+
+.btn-copy-ai:hover { background: #1b5e20; transform: translateY(-2px); }
+
+/* Таймер картасы */
+.timer-card {
+    background: #ffffff;
+    width: 320px;
+    padding: 30px;
+    border-radius: 24px;
+    text-align: center;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* Таймер дисплейі */
+.timer-display {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 25px 0;
+}
+
+#time-left {
+    position: absolute;
+    font-size: 32px;
+    font-weight: 800;
+    color: #1e293b;
+}
+
+/* Прогресс шеңбері */
+.progress-ring__circle {
+    transition: stroke-dashoffset 0.35s;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+}
+
+/* Батырмалар */
+.timer-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-timer {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-timer.start {
+    background: #2e7d32;
+    color: white;
+}
+
+.btn-timer.reset {
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+.btn-timer:active {
+    transform: scale(0.95);
+}
+/* Байланыс бетінің жалпы стилі */
+.contact-page {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.contact-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.contact-header h1 {
+    color: #1e293b;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.contact-header p {
+    color: #64748b;
+}
+
+/* Контейнер: ақпарат + форма */
+.contact-container {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 40px;
+    align-items: start;
+}
+
+/* Сол жақ: Мәліметтер */
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Сүйірмені (link) безендіруден тазарту */
+.info-card-link {
+    text-decoration: none;
+    display: block;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Блоктың үстіне барғандағы эффект */
+.info-card-link:hover .info-card {
+    border-color: #2e7d32; /* Жасыл жиек пайда болады */
+    transform: translateY(-3px); /* Сәл жоғары көтеріледі */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.info-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border: 1px solid #e2e8f0;
+    cursor: pointer;
+}
+
+/* Иконкалар түсі */
+.info-card i {
+    font-size: 1.5rem;
+    color: #2e7d32;
+}
+
+.info-text h4 {
+    margin: 0;
+    color: #1e293b;
+    font-size: 1rem;
+}
+
+.info-text p {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.9rem;
+}
+/* Оң жақ: Форма */
+.contact-form {
+    background: #fff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #1e293b;
+    font-size: 0.9rem;
+}
+
+.form-group input, 
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: 0.3s;
+}
+
+.form-group input:focus, 
+.form-group textarea:focus {
+    outline: none;
+    border-color: #2e7d32;
+    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 14px;
+    background: #2e7d32;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-submit:hover {
+    background: #1b5e20;
+    transform: translateY(-5px); transition: 0.3s;
+}
+
+/* Мобильді нұсқа */
+@media (max-width: 768px) {
+    .contact-container {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeachASM - Промттар</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-flex">
+        <a href="index.html" class="logo">Teach<span>ASM</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Басты бет</a></li>
+            <li><a href="links.html">Сілтемелер</a></li>
+            <li><a href="prompts.html" class="active">Промттар</a></li>
+            <li><a href="templates.html">Шаблондар</a></li>
+            <li><a href="contact.html">Байланыс</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="page-title">
+    <h2 class="section-title">Интерактивті AI Промттар</h2>
+    <p>Мұғалімдерге арналған дайын жасанды интеллект сұраныстары</p>
+</div>
+
+<div class="prompt-container">
+    <aside class="prompt-sidebar">
+        <div class="sidebar-header">AI Санаттары</div>
+        <ul class="category-list">
+            <li class="cat-item active" onclick="showCategory('math')">
+                <i class="fas fa-calculator"></i> Есеп шығару
+            </li>
+            <li class="cat-item" onclick="showCategory('lesson')">
+                <i class="fas fa-book"></i> Сабақ жоспары
+            </li>
+            <li class="cat-item" onclick="showCategory('level')">
+                <i class="fas fa-layer-group"></i> Деңгейлік тапсырма
+            </li>
+            <li class="cat-item" onclick="showCategory('interact')">
+                <i class="fas fa-gamepad"></i> Интерактивті сабақ
+            </li>
+            <li class="cat-item" onclick="showCategory('test')">
+                <i class="fas fa-tasks"></i> Тест құрастыру
+            </li>
+        </ul>
+    </aside>
+
+    <main class="prompt-content">
+        <div id="category-display">
+            <h2 id="current-title">Есеп шығару промттары</h2>
+            <p id="current-desc" class="description">Күрделі есептерді кезең-кезеңімен түсіндіруге арналған.</p>
+            
+            <div class="input-area">
+                <label for="topic-input">Тақырыбы:</label>
+                <input type="text" id="topic-input" placeholder="Мысалы: Пропорция немесе Туынды" oninput="updatePrompt()">
+                
+                <label for="extra-input">Қосымша мәліметтер:</label>
+                <input type="text" id="extra-input" placeholder="Мысалы: 7-сынып, 5 есеп" oninput="updatePrompt()">
+            </div>
+
+            <div class="ai-bubble">
+                <div class="bubble-label">Промт дайын:</div>
+                <div id="prompt-text">
+                    Математикадан [Тақырып] бойынша есептің шығарылу жолын [Қосымша] оқушысына түсінікті тілмен түсіндіріп бер.
+                </div>
+            </div>
+
+            <button class="btn-copy-ai" onclick="copyDynamicPrompt()">
+                <i class="far fa-copy"></i> Промтты көшіру
+            </button>
+        </div>
+    </main>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

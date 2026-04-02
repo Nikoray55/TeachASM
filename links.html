@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeachASM - Сілтемелер</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="links-bg">
+
+    <nav class="navbar">
+        <div class="nav-flex">
+            <a href="index.html" class="logo">Teach<span>ASM</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Басты бет</a></li>
+                <li><a href="links.html" class="active">Сілтемелер</a></li>
+                <li><a href="prompts.html">Промттар</a></li>
+                <li><a href="templates.html">Шаблондар</a></li>
+                <li><a href="contact.html">Байланыс</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="padding-top: 40px;">
+        <div class="page-title" style="text-align: center; margin-bottom: 40px;">
+            <h2 style="font-size: 2.5rem; color: #1e293b; margin-bottom: 10px;">Пайдалы ресурстар</h2>
+            <p style="color: #64748b; font-size: 1.1rem;">Әр плитканы басып, толық мәлімет алыңыз</p>
+        </div>
+
+        <div class="grid">
+            <div class="card" onclick="openM('MagicSchool AI', 'Мұғалімдердің уақытын үнемдейтін ЖИ құралы. Сабақ жоспарларын жасауға, деңгейлік тапсырмалар дайындауға және оқушыларға кері байланыс жазуға көмектеседі.', 'https://www.magicschool.ai/', '🤖')">
+                <div class="icon c1">🤖</div><span>MagicSchool AI</span>
+            </div>
+
+            <div class="card" onclick="openM('GeoGebra', 'Геометрия, алгебра және графиктерге арналған интерактивті орта. Мұнда дайын 1 миллионнан астам тегін оқу материалдары мен симуляциялар бар.', 'https://www.geogebra.org/', '📐')">
+                <div class="icon c2">📐</div><span>GeoGebra</span>
+            </div>
+
+            <div class="card" onclick="openM('Desmos', 'Функциялардың графигін салуға арналған ең үздік құрал. Мұғалімдер үшін арнайы Classroom Activities бөлімі бар, онда оқушылардың жұмысын бақылауға болады.', 'https://www.desmos.com/', '📈')">
+                <div class="icon c3">📈</div><span>Desmos</span>
+            </div>
+
+            <div class="card" onclick="openM('Mathigon', '«Болашақтың оқулығы» деп аталатын платформа. Мұндағы материалдар интерактивті, оқушылар виртуалды манипулятивтер арқылы математиканы зерттейді.', 'https://mathigon.org/', '🧩')">
+                <div class="icon c4">🧩</div><span>Mathigon</span>
+            </div>
+
+            <div class="card" onclick="openM('Wolfram Alpha', 'Күрделі математикалық есептерді, теңдеулер мен интегралдарды қадам-қадамымен шешіп беретін қуатты есептеуіш интеллект.', 'https://www.wolframalpha.com/', '⚙️')">
+                <div class="icon c5">⚙️</div><span>Wolfram Alpha</span>
+            </div>
+
+            <div class="card" onclick="openM('Polypad', 'Виртуалды зертхана. Геометриялық фигуралармен, сандар тізбегімен және ықтималдықтармен тәжірибе жасауға арналған өте ыңғайлы құрал.', 'https://mathigon.org/polypad', '🎨')">
+                <div class="icon c6">🎨</div><span>Polypad</span>
+            </div>
+
+            <div class="card" onclick="openM('Graspable Math', 'Алгебралық теңдеулерді «қолмен сүйреу» арқылы шешуге мүмкіндік береді. Оқушыларға айнымалылардың қалай өзгеретінін визуалды көрсету үшін таптырмас құрал.', 'https://graspablemath.com', '🖱️')">
+                <div class="icon c1">🖱️</div><span>Graspable Math</span>
+            </div>
+
+            <div class="card" onclick="openM('CanFigureIt', 'Геометриялық теоремаларды дәлелдеуге бағытталған платформа. Оқушылардың логикалық ойлау қабілетін дамытып, дәлелдеу қадамдарын дұрыс құруға үйретеді.', 'https://www.canfigureit.com', '📏')">
+                <div class="icon c2">📏</div><span>CanFigureIt</span>
+            </div>
+
+            <div class="card" onclick="openM('Blooket', 'Сабақты ойын түрінде өткізуге арналған геймификация платформасы. Оқушылар математикалық есептерді шеше отырып, виртуалды жарыстарға қатысады.', 'https://www.blooket.com', '🎮')">
+                <div class="icon c3">🎮</div><span>Blooket</span>
+            </div>
+
+            <div class="card" onclick="openM('Symbolab', 'Математикалық калькулятор. Алгебра, тригонометрия және туындыларды есептеп қана қоймай, әр қадамын егжей-тегжейлі түсіндіріп береді.', 'https://www.symbolab.com', '🔢')">
+                <div class="icon c4">🔢</div><span>Symbolab</span>
+            </div>
+
+            <div class="card" onclick="openM('DeltaMath', 'Мұғалімдерге үй тапсырмасын беруге және оны автоматты түрде тексеруге арналған база. Әрбір есептің дұрыс шығарылу жолы бейнеленген.', 'https://www.deltamath.com', '📝')">
+                <div class="icon c5">📝</div><span>DeltaMath</span>
+            </div>
+
+            <div class="card" onclick="openM('Wordwall', 'Интерактивті жаттығулар жасау конструкторы. Викторина, сәйкестендіру, анаграмма сияқты 30-дан астам ойын түрлерін тез арада жасауға болады.', 'https://wordwall.net', '🎡')">
+                <div class="icon c6">🎡</div><span>Wordwall</span>
+            </div>
+
+            <div class="card" onclick="openM('Nearpod', 'Презентацияларды интерактивті ететін құрал. Слайдтар арасына 3D модельдерді, виртуалды турларды және тесттерді қосуға мүмкіндік береді.', 'https://nearpod.com', '💻')">
+                <div class="icon c1">💻</div><span>Nearpod</span>
+            </div>
+
+            <div class="card" onclick="openM('Quizalize', 'Оқушыларды деңгейлеріне қарай топтарға автоматты түрде бөлетін тест жүйесі. Кімнің қандай тақырыптан қиналғанын нақты көрсетеді.', 'https://www.quizalize.com', '🏆')">
+                <div class="icon c2">🏆</div><span>Quizalize</span>
+            </div>
+
+            <div class="card" onclick="openM('CK-12', 'Математика мен жаратылыстану пәндері бойынша тегін цифрлық оқулықтар мен симуляциялар жинағы. Әр тақырып бойынша видео және практикалық жұмыс бар.', 'https://www.ck12.org', '📚')">
+                <div class="icon c3">📚</div><span>CK-12</span>
+            </div>
+        </div>
+    </div>
+
+<div id="m-view" class="modal">
+    <div class="m-box">
+        <span class="close-btn" onclick="closeM()">&times;</span>
+        <div id="m-icon" style="font-size: 60px; margin-bottom: 20px;"></div>
+        <h3 id="m-title"></h3>
+        <p id="m-desc"></p>
+        
+        <div style="display: flex; justify-content: center; margin-top: 20px;">
+            <a id="m-url" href="#" target="_blank" class="modal-link">Сайтқа өту</a>
+        </div>
+    </div>
+</div>
+    <script>
+        function openM(t, d, u, i) {
+            document.getElementById('m-title').innerText = t;
+            document.getElementById('m-desc').innerText = d;
+            document.getElementById('m-url').href = u;
+            document.getElementById('m-icon').innerText = i;
+            
+            const modal = document.getElementById('m-view');
+            modal.style.display = 'flex';
+        }
+
+        function closeM() { 
+            document.getElementById('m-view').style.display = 'none'; 
+        }
+        
+        window.onclick = function(event) {
+            let modal = document.getElementById('m-view');
+            if (event.target == modal) {
+                closeM();
+            }
+        }
+    </script>
+</body>
+</html>

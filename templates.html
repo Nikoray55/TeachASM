@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeachASM - Шаблондар</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-flex">
+        <div class="logo">Teach<span>ASM</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">Басты бет</a></li>
+            <li><a href="links.html">Сілтемелер</a></li>
+            <li><a href="prompts.html">Промттар</a></li>
+            <li><a href="templates.html" class="active">Шаблондар</a></li>
+            <li><a href="contact.html">Байланыс</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="dashboard-wrapper">
+    <aside class="side-menu">
+        <div class="menu-label">Әдістемелік кабинет</div>
+        <ul class="template-nav">
+            <li class="nav-item active" onclick="loadTemplate('kmj', this)">
+                <i class="fas fa-file-invoice"></i> ҚМЖ Конструкторы
+            </li>
+            <li class="nav-item" onclick="loadTemplate('eval', this)">
+                <i class="fas fa-chart-line"></i> Бағалау критерийлері
+            </li>
+            <li class="nav-item" onclick="loadTemplate('differentiation', this)">
+                <i class="fas fa-users-cog"></i> Саралап оқыту
+            </li>
+            <li class="nav-item" onclick="loadTemplate('feedback', this)">
+                <i class="fas fa-comment-dots"></i> Кері байланыс
+            </li>
+        </ul>
+    </aside>
+
+    <main class="main-workspace">
+        <header class="workspace-header">
+            <h2 id="template-title">ҚМЖ Конструкторы</h2>
+            <div class="workspace-actions">
+                <button class="btn-outline" onclick="fillWithAI()">
+                    <i class="fas fa-magic"></i> ЖИ-мен толтыру
+                </button>
+                <button class="btn-success" onclick="saveAsPDF()">
+                    <i class="fas fa-download"></i> PDF сақтау
+                </button>
+            </div>
+        </header>
+
+        <section class="editor-container">
+            <div class="form-panel">
+                <div class="input-field">
+                    <label for="topic">Сабақ тақырыбы:</label>
+                    <input type="text" id="topic" placeholder="Мысалы: Квадрат теңдеулер" oninput="updatePreview()">
+                </div>
+                <div class="input-field">
+                    <label for="goal">Оқу мақсаты:</label>
+                    <textarea id="goal" placeholder="Оқу бағдарламасына сай мақсатты жазыңыз..." oninput="updatePreview()"></textarea>
+                </div>
+                <div class="input-field">
+                    <label for="method">Әдіс-тәсілдер:</label>
+                    <textarea id="method" placeholder="Қолданылатын әдістерді жазыңыз..." oninput="updatePreview()"></textarea>
+                </div>
+            </div>
+            
+            <div class="document-preview">
+                <div class="page-a4" id="document-to-print">
+                    <div class="a4-content">
+                        <h3 class="preview-header" id="a4-header">Қысқа мерзімді жоспар</h3>
+                        <div class="doc-body">
+                            <p><strong>Тақырыбы:</strong> <span id="view-topic">...</span></p>
+                            <p><strong>Мақсаты:</strong> <span id="view-goal">...</span></p>
+                            <p><strong>Әдіс-тәсілдер:</strong> <span id="view-method">...</span></p>
+                        </div>
+                        <hr>
+                        <div class="preview-placeholder">Мәтінді сол жаққа жазсаңыз, осы жерде әдемі құжат пайда болады...</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="floating-tools">
+        <div class="tool-circle" title="Таймер" onclick="toggleTimer()">
+            <i class="fas fa-stopwatch"></i>
+        </div>
+        <div class="tool-circle" title="Оқушы таңдау" onclick="openRandomizer()">
+            <i class="fas fa-random"></i>
+        </div>
+    </div>
+</div>
+<div id="timer-modal" class="modal">
+    <div class="timer-card">
+        <span class="close-modal" onclick="closeTimer()">&times;</span>
+        
+        <div class="timer-header">
+            <div class="icon-circle">
+                <i class="fas fa-stopwatch"></i>
+            </div>
+            <h3>Сабақ таймері</h3>
+        </div>
+
+        <div class="timer-display">
+            <svg class="progress-ring" width="120" height="120">
+                <circle class="progress-ring__circle" stroke="#e2e8f0" stroke-width="8" fill="transparent" r="52" cx="60" cy="60"/>
+                <circle id="timer-progress" class="progress-ring__circle" stroke="#2e7d32" stroke-width="8" stroke-linecap="round" fill="transparent" r="52" cx="60" cy="60" style="stroke-dasharray: 326.7; stroke-dashoffset: 326.7;"/>
+            </svg>
+            <div id="time-left">05:00</div>
+        </div>
+
+        <div class="timer-controls">
+            <button class="btn-timer start" onclick="startCountdown()">Бастау</button>
+            <button class="btn-timer reset" onclick="resetTimer()">Нөлдеу</button>
+        </div>
+    </div>
+</div>
+<div id="randomizer-modal" class="modal">
+    <div class="randomizer-card">
+        <span class="close-modal" onclick="closeRandomizer()">&times;</span>
+        
+        <div class="randomizer-header">
+            <div class="icon-circle">
+                <i class="fas fa-users"></i>
+            </div>
+            <h3>Кім жауап береді?</h3>
+            <p>Оқушылар тізімін әр жолға бөлек жазыңыз</p>
+        </div>
+
+        <div class="randomizer-body">
+            <textarea id="student-list" placeholder="Мысалы:&#10;Асқар&#10;Айгерім&#10;Берік"></textarea>
+            
+            <div id="display-name" class="name-display-area">
+                <span>Дайынсыз ба?</span>
+            </div>
+        </div>
+
+        <div class="randomizer-footer">
+            <button class="btn-primary-action" onclick="pickStudent()">
+                <i class="fas fa-play"></i> Таңдау
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
