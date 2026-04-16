@@ -3,16 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TeachASM - Промттар</title>
+    <title>TeachASM - Промттар жинағы</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --primary: #2e7d32;
+            --accent: #10b981;
+            --text-dark: #0f172a;
+            --text-light: #64748b;
+            --card-bg: rgba(255, 255, 255, 0.9);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f1f5f9 0%, #cbd5e1 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+        }
+
+        /* Navbar */
+        .navbar {
+            background: white;
+            padding: 15px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        .nav-flex {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        .logo { font-size: 1.6rem; font-weight: 800; }
+        .logo span { color: var(--primary); }
+        .nav-links { list-style: none; display: flex; gap: 30px; margin: 0; }
+        .nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 600; transition: 0.3s; }
+        .nav-links a.active { color: var(--primary); }
+
+        /* Main Wrapper */
+        .container {
+            max-width: 1100px;
+            margin: 100px auto 60px;
+            padding: 0 20px;
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        /* Categories Filter (Optional Visual Enhancement) */
+        .category-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .cat-btn {
+            background: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+        .cat-btn:hover { background: var(--primary); color: white; }
+
+        /* Grid Layout */
+        .prompts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 25px;
+        }
+
+        /* Card Design */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.5);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+
+        .platform-badge {
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 5px 12px;
+            border-radius: 8px;
+            text-transform: uppercase;
+            background: #e2e8f0;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+        .platform-chatgpt { background: #10a37f; color: white; }
+        .platform-wolfram { background: #dd1100; color: white; }
+        .platform-geogebra { background: #6666ff; color: white; }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .prompt-preview {
+            background: rgba(0,0,0,0.03);
+            border-radius: 15px;
+            padding: 15px;
+            font-size: 0.85rem;
+            color: #334155;
+            border-left: 4px solid var(--primary);
+            font-family: 'Courier New', Courier, monospace;
+            margin-bottom: 15px;
+            white-space: pre-wrap;
+        }
+
+        .copy-action {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            background: var(--primary);
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+        .copy-action:hover { background: #235e26; }
+        .copy-action:active { transform: scale(0.95); }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e293b;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            display: none;
+            z-index: 2000;
+        }
+
+        @media (max-width: 768px) {
+            .prompts-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
 
 <nav class="navbar">
     <div class="nav-flex">
-        <a href="index.html" class="logo">Teach<span>ASM</span></a>
+        <div class="logo">Teach<span>ASM</span></div>
         <ul class="nav-links">
             <li><a href="index.html">Басты бет</a></li>
             <li><a href="links.html">Сілтемелер</a></li>
@@ -23,61 +193,95 @@
     </div>
 </nav>
 
-<div class="page-title">
-    <h2 class="section-title">Интерактивті AI Промттар</h2>
-    <p>Мұғалімдерге арналған дайын жасанды интеллект сұраныстары</p>
-</div>
+<div class="container">
+    <div class="hero-section">
+        <h1 style="font-size: 2.8rem; font-weight: 900; margin-bottom: 10px;">Интеллектуалды Промттар</h1>
+        <p style="color: var(--text-light); font-size: 1.1rem;">Оқытуды жеңілдететін AI-сұраныстар жинағы</p>
+    </div>
 
-<div class="prompt-container">
-    <aside class="prompt-sidebar">
-        <div class="sidebar-header">AI Санаттары</div>
-        <ul class="category-list">
-            <li class="cat-item active" onclick="showCategory('math')">
-                <i class="fas fa-calculator"></i> Есеп шығару
-            </li>
-            <li class="cat-item" onclick="showCategory('lesson')">
-                <i class="fas fa-book"></i> Сабақ жоспары
-            </li>
-            <li class="cat-item" onclick="showCategory('level')">
-                <i class="fas fa-layer-group"></i> Деңгейлік тапсырма
-            </li>
-            <li class="cat-item" onclick="showCategory('interact')">
-                <i class="fas fa-gamepad"></i> Интерактивті сабақ
-            </li>
-            <li class="cat-item" onclick="showCategory('test')">
-                <i class="fas fa-tasks"></i> Тест құрастыру
-            </li>
-        </ul>
-    </aside>
-
-    <main class="prompt-content">
-        <div id="category-display">
-            <h2 id="current-title">Есеп шығару промттары</h2>
-            <p id="current-desc" class="description">Күрделі есептерді кезең-кезеңімен түсіндіруге арналған.</p>
-            
-            <div class="input-area">
-                <label for="topic-input">Тақырыбы:</label>
-                <input type="text" id="topic-input" placeholder="Мысалы: Пропорция немесе Туынды" oninput="updatePrompt()">
-                
-                <label for="extra-input">Қосымша мәліметтер:</label>
-                <input type="text" id="extra-input" placeholder="Мысалы: 7-сынып, 5 есеп" oninput="updatePrompt()">
-            </div>
-
-            <div class="ai-bubble">
-                <div class="bubble-label">Промт дайын:</div>
-                <div id="prompt-text">
-                    Математикадан [Тақырып] бойынша есептің шығарылу жолын [Қосымша] оқушысына түсінікті тілмен түсіндіріп бер.
-                </div>
-            </div>
-
-            <button class="btn-copy-ai" onclick="copyDynamicPrompt()">
-                <i class="far fa-copy"></i> Промтты көшіру
-            </button>
+    <h2 style="margin: 40px 0 20px; font-weight: 800;"><i class="fas fa-calculator" style="color: var(--primary);"></i> 1. Есеп шығару промттары</h2>
+    <div class="prompts-grid">
+        <div class="card">
+            <span class="platform-badge platform-chatgpt">ChatGPT</span>
+            <div class="card-title">Сызықтық теңдеулер құрастыру (7-сынып)</div>
+            <div class="card-desc">Жеңілден күрделіге қарай 10 есепті шешу жолымен дайындау.</div>
+            <div class="prompt-preview" id="pr1">"7-сынып оқушыларына арналған алгебра есептерін құрастыр. Тақырып: сызықтық теңдеулер. 10 есеп дайында. Жеңілден күрделіге қарай орналастыр. Шешу жолын көрсет."</div>
+            <button class="copy-action" onclick="copyPrompt('pr1')"><i class="far fa-copy"></i> Көшіру</button>
         </div>
-    </main>
+
+        <div class="card">
+            <span class="platform-badge platform-wolfram">Wolfram Alpha</span>
+            <div class="card-title">Теңдеуді жылдам шешу немесе көбейткішке жіктеу</div>
+            <div class="card-desc">Кез келген теңдеудің анализін жасауға арналған.</div>
+            <div class="prompt-preview" id="pr2">solve 2x + 5 = 17 
+немесе 
+factor x^2 - 9</div>
+            <button class="copy-action" onclick="copyPrompt('pr2')"><i class="far fa-copy"></i> Көшіру</button>
+        </div>
+
+        <div class="card">
+            <span class="platform-badge" style="background:#cc3399; color:white;">Symbolab</span>
+            <div class="card-title">Теңдеулер жүйесін шешу</div>
+            <div class="card-desc">Екі айнымалысы бар теңдеулер жүйесіне арналған сұраныс.</div>
+            <div class="prompt-preview" id="pr3">solve system of equations 2x + y = 7, x - y = 1</div>
+            <button class="copy-action" onclick="copyPrompt('pr3')"><i class="far fa-copy"></i> Көшіру</button>
+        </div>
+    </div>
+
+    <h2 style="margin: 60px 0 20px; font-weight: 800;"><i class="fas fa-book-open" style="color: var(--primary);"></i> 2. Сабақ жоспары және Деңгейлік тапсырмалар</h2>
+    <div class="prompts-grid">
+        <div class="card">
+            <span class="platform-badge platform-chatgpt">ChatGPT</span>
+            <div class="card-title">8-сынып: Квадрат теңдеулер (Толық жоспар)</div>
+            <div class="card-desc">Кіріспеден бағалауға дейінгі толық сабақ құрылымы.</div>
+            <div class="prompt-preview" id="pr4">"8-сыныпқа арналған математика сабағының жоспарын құрастыр. Тақырып: квадрат теңдеулер. Құрылымы: Кіріспе, Жаңа тақырып, Практика, Топтық жұмыс, Қорытынды, Бағалау."</div>
+            <button class="copy-action" onclick="copyPrompt('pr4')"><i class="far fa-copy"></i> Көшіру</button>
+        </div>
+
+        <div class="card">
+            <span class="platform-badge" style="background:#4285f4; color:white;">Gemini / Copilot</span>
+            <div class="card-title">3 Деңгейлі Тапсырмалар (Бөлшектер)</div>
+            <div class="card-desc">Оқушының қабілетіне қарай A, B, C деңгейлеріне бөлу.</div>
+            <div class="prompt-preview" id="pr5">"6-сыныпқа арналған деңгейлік тапсырмалар дайында. Тақырып: бөлшектерді қосу және азайту. 1-деңгей: жеңіл, 2-деңгей: орташа, 3-деңгей: күрделі. Әр деңгейге 5 есеп."</div>
+            <button class="copy-action" onclick="copyPrompt('pr5')"><i class="far fa-copy"></i> Көшіру</button>
+        </div>
+    </div>
+
+    <h2 style="margin: 60px 0 20px; font-weight: 800;"><i class="fas fa-gamepad" style="color: var(--primary);"></i> 3. Интерактивті және Тест тапсырмалары</h2>
+    <div class="prompts-grid">
+        <div class="card">
+            <span class="platform-badge" style="background:#1e293b; color:white;">Desmos / GeoGebra</span>
+            <div class="card-title">Функция графиктері мен Парабола</div>
+            <div class="card-desc">График арқылы түбірлерді және төбесін табу.</div>
+            <div class="prompt-preview" id="pr6">y = x^2 - 4x + 3
+Тапсырма: параболаның төбесін табу және түбірлерін анықтау.</div>
+            <button class="copy-action" onclick="copyPrompt('pr6')"><i class="far fa-copy"></i> Көшіру</button>
+        </div>
+
+        <div class="card">
+            <span class="platform-badge" style="background:#8854c0; color:white;">Quizizz / Kahoot</span>
+            <div class="card-title">Пропорция тақырыбына онлайн тест</div>
+            <div class="card-desc">4 нұсқалы 10 сұрақтан тұратын тест дайындау.</div>
+            <div class="prompt-preview" id="pr7">"7-сыныпқа арналған математика тестін құрастыр. Тақырып: пропорция. 10 сұрақ, 4 жауап нұсқасы. Дұрыс жауаптарын көрсет."</div>
+            <button class="copy-action" onclick="copyPrompt('pr7')"><i class="far fa-copy"></i> Көшіру</button>
+        </div>
+    </div>
 </div>
 
-<script src="script.js"></script>
+<div id="toast" class="toast">Промт көшірілді! ChatGPT-ге қоя аласыз ✅</div>
+
+<script>
+    function copyPrompt(id) {
+        const text = document.getElementById(id).innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            const toast = document.getElementById('toast');
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 2500);
+        });
+    }
+</script>
 
 </body>
 </html>
