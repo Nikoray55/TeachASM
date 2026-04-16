@@ -3,11 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TeachASM - Шаблондар</title>
+    <title>TeachASM - Сабақ жоспарлары</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #2e7d32;
+            --secondary-color: #f1f5f9;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --glass-bg: rgba(255, 255, 255, 0.8);
+            --glass-border: rgba(255, 255, 255, 0.4);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            min-height: 100vh;
+        }
+
+        /* Navbar стилі */
+        .navbar {
+            background: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        .nav-flex {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text-main); }
+        .logo span { color: var(--primary-color); }
+        .nav-links { list-style: none; display: flex; gap: 25px; margin: 0; }
+        .nav-links a { text-decoration: none; color: var(--text-main); font-weight: 600; transition: 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary-color); }
+
+        /* Негізгі Контент */
+        .template-section {
+            padding: 120px 20px 60px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .glass-card {
+            max-width: 700px;
+            width: 100%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            text-align: center;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Іздеу аймағы */
+        .search-wrapper {
+            position: relative;
+            margin: 30px 0;
+        }
+
+        .custom-input {
+            width: 100%;
+            padding: 18px 25px;
+            padding-right: 60px;
+            border-radius: 18px;
+            border: 2px solid transparent;
+            background: white;
+            font-family: 'Montserrat';
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .custom-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 20px rgba(46, 125, 50, 0.1);
+            outline: none;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            transition: 0.3s;
+        }
+
+        /* Нәтижелер тізімі */
+        .results-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .result-item {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 15px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 600;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.3s;
+            animation: slideUp 0.4s ease-out forwards;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-item:hover {
+            border-color: var(--primary-color);
+            background: #f0fdf4;
+            transform: translateX(5px);
+        }
+
+        .result-item i.fa-file-pdf { color: #ef4444; margin-right: 10px; }
+        .result-item i.fa-download { color: var(--primary-color); opacity: 0.7; }
+
+        .status-badge {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .hint-text {
+            margin-top: 25px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .hint-text span {
+            text-decoration: underline;
+            cursor: pointer;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+    </style>
 </head>
 <body>
 
@@ -24,133 +180,100 @@
     </div>
 </nav>
 
-<div class="dashboard-wrapper">
-    <aside class="side-menu">
-        <div class="menu-label">Әдістемелік кабинет</div>
-        <ul class="template-nav">
-            <li class="nav-item active" onclick="loadTemplate('kmj', this)">
-                <i class="fas fa-file-invoice"></i> ҚМЖ Конструкторы
-            </li>
-            <li class="nav-item" onclick="loadTemplate('eval', this)">
-                <i class="fas fa-chart-line"></i> Бағалау критерийлері
-            </li>
-            <li class="nav-item" onclick="loadTemplate('differentiation', this)">
-                <i class="fas fa-users-cog"></i> Саралап оқыту
-            </li>
-            <li class="nav-item" onclick="loadTemplate('feedback', this)">
-                <i class="fas fa-comment-dots"></i> Кері байланыс
-            </li>
-        </ul>
-    </aside>
+<section class="template-section">
+    <div class="glass-card">
+        <h2 style="color: var(--text-main); font-size: 1.8rem; font-weight: 800; margin: 0;">Сабақ жоспарларын іздеу</h2>
+        <p style="color: var(--text-muted); margin-top: 10px;">Керекті тақырыпты жазыңыз, біз файлды тауып береміз</p>
 
-    <main class="main-workspace">
-        <header class="workspace-header">
-            <h2 id="template-title">ҚМЖ Конструкторы</h2>
-            <div class="workspace-actions">
-                <button class="btn-outline" onclick="fillWithAI()">
-                    <i class="fas fa-magic"></i> ЖИ-мен толтыру
-                </button>
-                <button class="btn-success" onclick="saveAsPDF()">
-                    <i class="fas fa-download"></i> PDF сақтау
-                </button>
-            </div>
-        </header>
-
-        <section class="editor-container">
-            <div class="form-panel">
-                <div class="input-field">
-                    <label for="topic">Сабақ тақырыбы:</label>
-                    <input type="text" id="topic" placeholder="Мысалы: Квадрат теңдеулер" oninput="updatePreview()">
-                </div>
-                <div class="input-field">
-                    <label for="goal">Оқу мақсаты:</label>
-                    <textarea id="goal" placeholder="Оқу бағдарламасына сай мақсатты жазыңыз..." oninput="updatePreview()"></textarea>
-                </div>
-                <div class="input-field">
-                    <label for="method">Әдіс-тәсілдер:</label>
-                    <textarea id="method" placeholder="Қолданылатын әдістерді жазыңыз..." oninput="updatePreview()"></textarea>
-                </div>
-            </div>
-            
-            <div class="document-preview">
-                <div class="page-a4" id="document-to-print">
-                    <div class="a4-content">
-                        <h3 class="preview-header" id="a4-header">Қысқа мерзімді жоспар</h3>
-                        <div class="doc-body">
-                            <p><strong>Тақырыбы:</strong> <span id="view-topic">...</span></p>
-                            <p><strong>Мақсаты:</strong> <span id="view-goal">...</span></p>
-                            <p><strong>Әдіс-тәсілдер:</strong> <span id="view-method">...</span></p>
-                        </div>
-                        <hr>
-                        <div class="preview-placeholder">Мәтінді сол жаққа жазсаңыз, осы жерде әдемі құжат пайда болады...</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <div class="floating-tools">
-        <div class="tool-circle" title="Таймер" onclick="toggleTimer()">
-            <i class="fas fa-stopwatch"></i>
+        <div class="search-wrapper">
+            <input type="text" id="topic-input" class="custom-input" 
+                   placeholder="Мысалы: натурал немесе есеп..." 
+                   oninput="smartSearch()">
+            <i class="fas fa-search search-icon" id="search-icon"></i>
         </div>
-        <div class="tool-circle" title="Оқушы таңдау" onclick="openRandomizer()">
-            <i class="fas fa-random"></i>
-        </div>
-    </div>
-</div>
-<div id="timer-modal" class="modal">
-    <div class="timer-card">
-        <span class="close-modal" onclick="closeTimer()">&times;</span>
+
+        <div id="status-msg" class="status-badge"></div>
         
-        <div class="timer-header">
-            <div class="icon-circle">
-                <i class="fas fa-stopwatch"></i>
-            </div>
-            <h3>Сабақ таймері</h3>
-        </div>
+        <div id="results-list" class="results-container"></div>
 
-        <div class="timer-display">
-            <svg class="progress-ring" width="120" height="120">
-                <circle class="progress-ring__circle" stroke="#e2e8f0" stroke-width="8" fill="transparent" r="52" cx="60" cy="60"/>
-                <circle id="timer-progress" class="progress-ring__circle" stroke="#2e7d32" stroke-width="8" stroke-linecap="round" fill="transparent" r="52" cx="60" cy="60" style="stroke-dasharray: 326.7; stroke-dashoffset: 326.7;"/>
-            </svg>
-            <div id="time-left">05:00</div>
-        </div>
-
-        <div class="timer-controls">
-            <button class="btn-timer start" onclick="startCountdown()">Бастау</button>
-            <button class="btn-timer reset" onclick="resetTimer()">Нөлдеу</button>
-        </div>
+        <p class="hint-text">
+            Кеңес: <b><span onclick="setTopic('натурал')">натурал</span></b>, 
+            <b><span onclick="setTopic('есеп')">есеп</span></b>, 
+            <b><span onclick="setTopic('бөлгіш')">бөлгіш</span></b>
+        </p>
     </div>
-</div>
-<div id="randomizer-modal" class="modal">
-    <div class="randomizer-card">
-        <span class="close-modal" onclick="closeRandomizer()">&times;</span>
+</section>
+
+<script>
+    // Барлық файлдар базасы (Толық тізім)
+    const fileDatabase = [
+        "Бөлінгіштіктің  негізгі  қасиеті.pdf",
+        "Дәреже.pdf",
+        "Ең  кіші  ортақ  еселік.pdf",
+        "Ең  үлкен  ортақ  бөлгіш.pdf",
+        "ЕҮОБ пен ЕКОЕ табуға есептер  шығару.pdf",
+        "Жай  бөлшектің  негізгі  қасиеті.pdf",
+        "Кесінді.pdf",
+        "Координаталық сәуле.pdf",
+        "Мәтінді есептерді  теңдеудің  көмегімен  шығару.pdf",
+        "Натурал сандарды азайту.pdf",
+        "Натурал сандарды жазу.pdf",
+        "Натурал сандарды қосу.pdf",
+        "Натурал сандарды салыстыру.pdf",
+        "Натурал сандарды 2,5, 10-ға  бөлінгіштік  белгілері.pdf",
+        "Натурал сандарды 3,9 -ға  бөлінгіштік  белгілері.pdf",
+        "Натурал сандарды жай  көбейткіштерге  жіктеу.pdf",
+        "Натурал сандарды қөбейту және бөлу.pdf",
+        "Натурал сандарды бөлгіші  және  еселігі.pdf",
+        "Өрнектерді ықшамдау.pdf",
+        "Есеп шығару.pdf"
+    ];
+
+    function smartSearch() {
+        const input = document.getElementById('topic-input').value.trim().toLowerCase();
+        const resultsArea = document.getElementById('results-list');
+        const status = document.getElementById('status-msg');
+        const icon = document.getElementById('search-icon');
         
-        <div class="randomizer-header">
-            <div class="icon-circle">
-                <i class="fas fa-users"></i>
-            </div>
-            <h3>Кім жауап береді?</h3>
-            <p>Оқушылар тізімін әр жолға бөлек жазыңыз</p>
-        </div>
+        resultsArea.innerHTML = ""; // Ескі нәтижелерді өшіру
 
-        <div class="randomizer-body">
-            <textarea id="student-list" placeholder="Мысалы:&#10;Асқар&#10;Айгерім&#10;Берік"></textarea>
+        if (input.length > 1) {
+            icon.style.color = '#2e7d32';
             
-            <div id="display-name" class="name-display-area">
-                <span>Дайынсыз ба?</span>
-            </div>
-        </div>
+            // Сәйкес файлдарды табу
+            const matchedFiles = fileDatabase.filter(fileName => 
+                fileName.toLowerCase().includes(input)
+            );
 
-        <div class="randomizer-footer">
-            <button class="btn-primary-action" onclick="pickStudent()">
-                <i class="fas fa-play"></i> Таңдау
-            </button>
-        </div>
-    </div>
-</div>
+            if (matchedFiles.length > 0) {
+                status.innerHTML = `<i class="fas fa-check-circle"></i> ${matchedFiles.length} файл табылды:`;
+                
+                matchedFiles.forEach(fileName => {
+                    const link = document.createElement('a');
+                    link.href = fileName;
+                    link.download = fileName;
+                    link.className = 'result-item';
+                    link.innerHTML = `
+                        <span><i class="fas fa-file-pdf"></i> ${fileName}</span>
+                        <i class="fas fa-download"></i>
+                    `;
+                    resultsArea.appendChild(link);
+                });
+            } else {
+                status.innerHTML = `<span style="color: #64748b;">"${input}" бойынша ештеңе табылмады</span>`;
+            }
+        } else {
+            icon.style.color = '#94a3b8';
+            status.innerHTML = "";
+        }
+    }
 
-<script src="script.js"></script>
+    // Тез жазу функциясы
+    function setTopic(name) {
+        document.getElementById('topic-input').value = name;
+        smartSearch();
+    }
+</script>
+
 </body>
 </html>

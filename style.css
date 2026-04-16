@@ -5,7 +5,15 @@
     box-sizing: border-box; 
     font-family: 'Montserrat', sans-serif; 
 }
+html {
+    scroll-behavior: smooth; /* Сырғып бару эффектісі */
+}
 
+/* Бөлімдер бір-біріне жабысып қалмауы үшін арақашықтық */
+#links, #prompts, #templates, #contact {
+    padding-top: 80px; 
+    margin-bottom: 50px;
+}
 :root { 
     --green: #2e7d32; 
     --soft-green: #eef9f1; 
@@ -369,15 +377,31 @@ body {
 
 /* Модальді терезенің ортасындағы ақ блок */
 .m-box {
+    /* 1. Орналасуы (Ортаға келтіру үшін ең маңызды бөлім) */
+    display: flex;
+    flex-direction: column;   /* Элементтерді вертикальді тізу */
+    align-items: center;      /* Элементтерді көлденеңінен ортаға қою */
+    text-align: center;       /* Мәтінді ортаға жазу */
+    
+    /* 2. Сыртқы түрі */
     background-color: #ffffff;
     margin: auto;
     padding: 40px;
     border-radius: 24px;
     width: 90%;
-    max-width: 600px; /* Терезенің максималды ені */
+    max-width: 600px;         /* Терезенің максималды ені */
+    
+    /* 3. Эффектілер */
     position: relative;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     animation: slideIn 0.3s ease-out; /* Ашылу анимациясы */
+}
+
+/* Ішіндегі сурет (логотип) үшін қосымша стиль */
+.m-box img, #m-icon {
+    width: 80px;              /* Көлемін реттеу */
+    height: auto;
+    margin-bottom: 20px;      /* Астынан бос орын қалдыру */
 }
 .modal-link {
     display: inline-block;
@@ -642,69 +666,6 @@ body {
 
 .btn-copy-ai:hover { background: #1b5e20; transform: translateY(-2px); }
 
-/* Таймер картасы */
-.timer-card {
-    background: #ffffff;
-    width: 320px;
-    padding: 30px;
-    border-radius: 24px;
-    text-align: center;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-    position: relative;
-}
-
-/* Таймер дисплейі */
-.timer-display {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 25px 0;
-}
-
-#time-left {
-    position: absolute;
-    font-size: 32px;
-    font-weight: 800;
-    color: #1e293b;
-}
-
-/* Прогресс шеңбері */
-.progress-ring__circle {
-    transition: stroke-dashoffset 0.35s;
-    transform: rotate(-90deg);
-    transform-origin: 50% 50%;
-}
-
-/* Батырмалар */
-.timer-controls {
-    display: flex;
-    gap: 10px;
-}
-
-.btn-timer {
-    flex: 1;
-    padding: 12px;
-    border: none;
-    border-radius: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.btn-timer.start {
-    background: #2e7d32;
-    color: white;
-}
-
-.btn-timer.reset {
-    background: #f1f5f9;
-    color: #64748b;
-}
-
-.btn-timer:active {
-    transform: scale(0.95);
-}
 /* Байланыс бетінің жалпы стилі */
 .contact-page {
     max-width: 1000px;
@@ -903,3 +864,42 @@ body {
         font-size: 14px;
     }
 }
+    .results-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 20px;
+        text-align: left;
+    }
+
+    .result-item {
+        background: white;
+        padding: 15px 20px;
+        border-radius: 12px;
+        text-decoration: none;
+        color: #1e293b;
+        font-weight: 600;
+        border: 1px solid #e2e8f0;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        animation: slideIn 0.3s ease-out forwards;
+    }
+
+    .result-item i {
+        color: #ef4444; /* PDF иконкасының түсі */
+        font-size: 1.2rem;
+    }
+
+    .result-item:hover {
+        border-color: #2e7d32;
+        background: #f0fdf4;
+        transform: translateX(5px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    @keyframes slideIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
