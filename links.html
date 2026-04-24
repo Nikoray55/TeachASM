@@ -7,6 +7,146 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body.links-bg {
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            background-image: radial-gradient(rgba(203, 213, 225, 0.5) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding-top: 20px !important;
+            padding-bottom: 20px !important;
+            margin-bottom: 0 !important;
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .page-title {
+            margin-bottom: 20px !important;
+            padding-top: 0 !important;
+            flex-shrink: 0;
+            text-align: center;
+        }
+
+        .page-title h2 {
+            font-size: 2.2rem !important;
+            font-weight: 800 !important;
+            background: linear-gradient(135deg, #2e7d32, #4caf50);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px !important;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 4px 15px rgba(46, 125, 50, 0.1);
+        }
+
+        .grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr) !important;
+            grid-template-rows: repeat(3, 1fr);
+            gap: 20px !important;
+            padding: 0 !important;
+            max-width: 100% !important;
+            height: 100%;
+        }
+
+        .card {
+            width: 100% !important;
+            height: 100% !important;
+            box-sizing: border-box !important;
+            display: flex !important;
+            flex-direction: column !important;
+            background: rgba(255, 255, 255, 0.6) !important;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.8) !important;
+            border-radius: 20px !important;
+            padding: 15px !important;
+            justify-content: center;
+            align-items: center;
+            text-align: center !important;
+            gap: 12px !important;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03) !important;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, rgba(46, 125, 50, 0.05), rgba(76, 175, 80, 0.15));
+            z-index: -1;
+            opacity: 0;
+            transition: 0.4s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px) scale(1.03) !important;
+            border-color: rgba(46, 125, 50, 0.4) !important;
+            box-shadow: 0 20px 40px rgba(46, 125, 50, 0.15) !important;
+        }
+
+        .card:hover::after { opacity: 1; }
+
+        .card .icon {
+            width: 55px !important;
+            height: 55px !important;
+            font-size: 28px !important;
+            background: #ffffff !important;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.06) !important;
+            border-radius: 16px !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+        }
+
+        .card:hover .icon {
+            transform: scale(1.15) rotate(10deg);
+            background: #e8f5e9 !important;
+        }
+
+        .card span {
+            font-size: 0.95rem !important;
+            font-weight: 700 !important;
+            color: #1e293b !important;
+        }
+
+        .m-box {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.6);
+            border-radius: 28px !important;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+            padding: 50px !important;
+        }
+
+        @media (max-width: 992px) {
+            body.links-bg {
+                height: auto;
+                overflow: auto;
+            }
+            .grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important;
+                grid-template-rows: auto;
+            }
+        }
+    </style>
 </head>
 <body class="links-bg">
 

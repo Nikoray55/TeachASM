@@ -43,9 +43,8 @@ body {
     padding: 15px 0; 
     background: var(--white); 
     border-bottom: 1px solid #eee; 
-    position: fixed; 
+    position: sticky; 
     top: 0; 
-    left: 0; 
     z-index: 1000;
 }
 
@@ -62,10 +61,6 @@ body {
 @media (max-width: 600px) {
     h1 {
         font-size: 22px !important; /* Телефонда жазуды кішірейту */
-    }
-    
-    .container {
-        margin-top: 140px; /* Мәзір екі қатар болғандықтан, контентті төмен түсіру */
     }
 }
 .logo { font-size: 24px; font-weight: 800; text-decoration: none; color: var(--dark); }
@@ -89,8 +84,8 @@ body {
 
 /* --- 3. БАСТЫ БЕТ (HERO SECTION) --- */
 .hero { 
-    padding-top: 100px; 
-    min-height: 85vh; 
+    padding-top: 20px; 
+    min-height: calc(100vh - 80px); 
     display: flex; 
     align-items: center; 
     background: linear-gradient(to bottom, var(--soft-green), var(--white)); 
@@ -736,9 +731,12 @@ body {
 /* Контейнер: ақпарат + форма */
 .contact-container {
     display: grid;
-    grid-template-columns: 1fr 1.5fr;
-    gap: 40px;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    max-width: 850px;
+    margin: 0 auto;
     align-items: start;
+    padding: 0 20px 40px;
 }
 
 /* Сол жақ: Мәліметтер */

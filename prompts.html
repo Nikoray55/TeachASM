@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TeachASM - Промттар жинағы</title>
-    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
@@ -22,22 +21,24 @@
             margin: 0;
             font-family: 'Montserrat', sans-serif;
             background: linear-gradient(135deg, #f1f5f9 0%, #cbd5e1 100%);
-            min-height: 100vh;
+            height: 100vh;
+            overflow: hidden;
             color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
         }
 
         /* Navbar */
         .navbar {
             background: white;
-            padding: 15px 0;
+            padding: 10px 0;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            position: fixed;
             width: 100%;
-            top: 0;
             z-index: 1000;
+            flex-shrink: 0;
         }
         .nav-flex {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -45,118 +46,171 @@
             padding: 0 20px;
         }
         
-        .logo { font-size: 1.6rem; font-weight: 800; }
+        .logo { font-size: 1.4rem; font-weight: 800; }
         .logo span { color: var(--primary); }
-        .nav-links { list-style: none; display: flex; gap: 30px; margin: 0; }
-        .nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 600; transition: 0.3s; }
+        .nav-links { list-style: none; display: flex; gap: 20px; margin: 0; }
+        .nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 600; font-size: 14px; transition: 0.3s; }
         .nav-links a.active { color: var(--primary); }
 
         /* Main Wrapper */
-        .container {
-            max-width: 1100px;
-            margin: 100px auto 60px;
-            padding: 0 20px;
+        .dashboard {
+            flex: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            gap: 15px;
+            height: calc(100vh - 50px);
         }
 
         .hero-section {
             text-align: center;
-            margin-bottom: 50px;
+            flex-shrink: 0;
+        }
+        
+        .hero-section h1 {
+            font-size: 1.6rem;
+            font-weight: 900;
+            margin: 0 0 5px 0;
         }
 
-        /* Categories Filter (Optional Visual Enhancement) */
-        .category-nav {
+        .hero-section p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* Columns Layout */
+        .columns-wrapper {
             display: flex;
-            justify-content: center;
             gap: 15px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
+            flex: 1;
+            min-height: 0; /* Important for scrollable columns */
         }
-        .cat-btn {
-            background: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: 0.3s;
-        }
-        .cat-btn:hover { background: var(--primary); color: white; }
 
-        /* Grid Layout */
-        .prompts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 25px;
+        .column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 20px;
+            box-sizing: border-box;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         }
+
+        .column h2 {
+            font-size: 1.15rem;
+            margin: 0 0 15px 0;
+            font-weight: 800;
+            flex-shrink: 0;
+            color: var(--text-dark);
+            text-align: center;
+            border-bottom: 2px dashed rgba(46, 125, 50, 0.2);
+            padding-bottom: 10px;
+        }
+
+        /* Grid Layout inside columns */
+        .prompts-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            overflow-y: auto;
+            padding-right: 5px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+        
+        .prompts-grid::-webkit-scrollbar { width: 4px; }
+        .prompts-grid::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
 
         /* Card Design */
         .card {
             background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border-radius: 25px;
-            padding: 25px;
-            border: 1px solid rgba(255,255,255,0.5);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border-radius: 16px;
+            padding: 15px;
+            border: 1px solid rgba(255,255,255,0.9);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
             transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             flex-direction: column;
+            position: relative;
+            overflow: hidden;
         }
-        .card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--primary);
+            opacity: 0;
+            transition: 0.3s;
+        }
+        .card:hover { 
+            transform: translateY(-5px) scale(1.02); 
+            box-shadow: 0 15px 30px rgba(46, 125, 50, 0.15); 
+            border-color: rgba(46, 125, 50, 0.3);
+        }
+        .card:hover::before { opacity: 1; }
 
         .platform-badge {
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             font-weight: 800;
-            padding: 5px 12px;
-            border-radius: 8px;
+            padding: 3px 6px;
+            border-radius: 6px;
             text-transform: uppercase;
             background: #e2e8f0;
-            margin-bottom: 15px;
-            display: inline-block;
+            margin-bottom: 8px;
+            align-self: flex-start;
         }
         .platform-chatgpt { background: #10a37f; color: white; }
         .platform-wolfram { background: #dd1100; color: white; }
         .platform-geogebra { background: #6666ff; color: white; }
 
         .card-title {
-            font-size: 1.2rem;
+            font-size: 0.9rem;
             font-weight: 800;
-            margin-bottom: 10px;
-            line-height: 1.3;
+            margin-bottom: 5px;
+            line-height: 1.2;
         }
 
         .card-desc {
-            font-size: 0.9rem;
+            font-size: 0.75rem;
             color: var(--text-light);
-            margin-bottom: 15px;
-            flex-grow: 1;
+            margin-bottom: 8px;
         }
 
         .prompt-preview {
             background: rgba(0,0,0,0.03);
-            border-radius: 15px;
-            padding: 15px;
-            font-size: 0.85rem;
+            border-radius: 8px;
+            padding: 8px;
+            font-size: 0.7rem;
             color: #334155;
-            border-left: 4px solid var(--primary);
+            border-left: 3px solid var(--primary);
             font-family: 'Courier New', Courier, monospace;
-            margin-bottom: 15px;
+            margin-bottom: 8px;
             white-space: pre-wrap;
+            flex-grow: 1;
         }
 
         .copy-action {
             width: 100%;
-            padding: 12px;
+            padding: 6px;
             border: none;
-            border-radius: 12px;
+            border-radius: 8px;
             background: var(--primary);
             color: white;
             font-weight: 700;
+            font-size: 0.75rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 6px;
             transition: 0.3s;
         }
         .copy-action:hover { background: #235e26; }
@@ -165,19 +219,26 @@
         /* Toast */
         .toast {
             position: fixed;
-            bottom: 30px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             background: #1e293b;
             color: white;
-            padding: 12px 30px;
+            padding: 10px 25px;
             border-radius: 50px;
+            font-size: 0.85rem;
             display: none;
             z-index: 2000;
         }
 
-        @media (max-width: 768px) {
-            .prompts-grid { grid-template-columns: 1fr; }
+        @media (max-width: 992px) {
+            body { overflow: auto; height: auto; min-height: 100vh; }
+            .dashboard { height: auto; flex-direction: column; padding: 15px; }
+            .columns-wrapper { flex-direction: column; gap: 20px; }
+            .prompts-grid { overflow-y: visible; height: auto; }
+            .nav-flex { flex-direction: column; gap: 10px; }
+            .nav-links { flex-wrap: wrap; justify-content: center; gap: 10px; }
+            .hero-section h1 { font-size: 1.4rem; }
         }
     </style>
 </head>
@@ -196,77 +257,84 @@
     </div>
 </nav>
 
-<div class="container">
+<div class="dashboard">
     <div class="hero-section">
-        <h1 style="font-size: 2.8rem; font-weight: 900; margin-bottom: 10px;">Интеллектуалды Промттар</h1>
-        <p style="color: var(--text-light); font-size: 1.1rem;">Оқытуды жеңілдететін AI-сұраныстар жинағы</p>
+        <h1>Интеллектуалды Промттар</h1>
+        <p>Оқытуды жеңілдететін AI-сұраныстар жинағы</p>
     </div>
 
-    <h2 style="margin: 40px 0 20px; font-weight: 800;"><i class="fas fa-calculator" style="color: var(--primary);"></i> 1. Есеп шығару промттары</h2>
-    <div class="prompts-grid">
-        <div class="card">
-            <span class="platform-badge platform-chatgpt">ChatGPT</span>
-            <div class="card-title">Сызықтық теңдеулер құрастыру (7-сынып)</div>
-            <div class="card-desc">Жеңілден күрделіге қарай 10 есепті шешу жолымен дайындау.</div>
-            <div class="prompt-preview" id="pr1">"7-сынып оқушыларына арналған алгебра есептерін құрастыр. Тақырып: сызықтық теңдеулер. 10 есеп дайында. Жеңілден күрделіге қарай орналастыр. Шешу жолын көрсет."</div>
-            <button class="copy-action" onclick="copyPrompt('pr1')"><i class="far fa-copy"></i> Көшіру</button>
-        </div>
-
-        <div class="card">
-            <span class="platform-badge platform-wolfram">Wolfram Alpha</span>
-            <div class="card-title">Теңдеуді жылдам шешу немесе көбейткішке жіктеу</div>
-            <div class="card-desc">Кез келген теңдеудің анализін жасауға арналған.</div>
-            <div class="prompt-preview" id="pr2">solve 2x + 5 = 17 
+    <div class="columns-wrapper">
+        <!-- 1 баған -->
+        <div class="column">
+            <h2><i class="fas fa-calculator" style="color: var(--primary);"></i> 1. Есеп шығару</h2>
+            <div class="prompts-grid">
+                <div class="card">
+                    <span class="platform-badge platform-chatgpt">ChatGPT</span>
+                    <div class="card-title">Сызықтық теңдеулер (7-сынып)</div>
+                    <div class="card-desc">Жеңілден күрделіге қарай 10 есеп дайындау.</div>
+                    <div class="prompt-preview" id="pr1">"7-сынып оқушыларына арналған алгебра есептерін құрастыр. Тақырып: сызықтық теңдеулер. 10 есеп дайында. Жеңілден күрделіге қарай орналастыр. Шешу жолын көрсет."</div>
+                    <button class="copy-action" onclick="copyPrompt('pr1')"><i class="far fa-copy"></i> Көшіру</button>
+                </div>
+                <div class="card">
+                    <span class="platform-badge platform-wolfram">Wolfram Alpha</span>
+                    <div class="card-title">Теңдеуді шешу / көбейткішке жіктеу</div>
+                    <div class="card-desc">Кез келген теңдеудің анализін жасау.</div>
+                    <div class="prompt-preview" id="pr2">solve 2x + 5 = 17 
 немесе 
 factor x^2 - 9</div>
-            <button class="copy-action" onclick="copyPrompt('pr2')"><i class="far fa-copy"></i> Көшіру</button>
+                    <button class="copy-action" onclick="copyPrompt('pr2')"><i class="far fa-copy"></i> Көшіру</button>
+                </div>
+                <div class="card">
+                    <span class="platform-badge" style="background:#cc3399; color:white;">Symbolab</span>
+                    <div class="card-title">Теңдеулер жүйесін шешу</div>
+                    <div class="card-desc">Екі айнымалысы бар теңдеулер жүйесі.</div>
+                    <div class="prompt-preview" id="pr3">solve system of equations 2x + y = 7, x - y = 1</div>
+                    <button class="copy-action" onclick="copyPrompt('pr3')"><i class="far fa-copy"></i> Көшіру</button>
+                </div>
+            </div>
         </div>
 
-        <div class="card">
-            <span class="platform-badge" style="background:#cc3399; color:white;">Symbolab</span>
-            <div class="card-title">Теңдеулер жүйесін шешу</div>
-            <div class="card-desc">Екі айнымалысы бар теңдеулер жүйесіне арналған сұраныс.</div>
-            <div class="prompt-preview" id="pr3">solve system of equations 2x + y = 7, x - y = 1</div>
-            <button class="copy-action" onclick="copyPrompt('pr3')"><i class="far fa-copy"></i> Көшіру</button>
+        <!-- 2 баған -->
+        <div class="column">
+            <h2><i class="fas fa-book-open" style="color: var(--primary);"></i> 2. Сабақ жоспары</h2>
+            <div class="prompts-grid">
+                <div class="card">
+                    <span class="platform-badge platform-chatgpt">ChatGPT</span>
+                    <div class="card-title">8-сынып: Квадрат теңдеулер</div>
+                    <div class="card-desc">Кіріспеден бағалауға дейінгі сабақ құрылымы.</div>
+                    <div class="prompt-preview" id="pr4">"8-сыныпқа арналған математика сабағының жоспарын құрастыр. Тақырып: квадрат теңдеулер. Құрылымы: Кіріспе, Жаңа тақырып, Практика, Топтық жұмыс, Қорытынды, Бағалау."</div>
+                    <button class="copy-action" onclick="copyPrompt('pr4')"><i class="far fa-copy"></i> Көшіру</button>
+                </div>
+                <div class="card">
+                    <span class="platform-badge" style="background:#4285f4; color:white;">Gemini / Copilot</span>
+                    <div class="card-title">3 Деңгейлі Тапсырмалар</div>
+                    <div class="card-desc">Оқушының қабілетіне қарай A, B, C деңгейлері.</div>
+                    <div class="prompt-preview" id="pr5">"6-сыныпқа арналған деңгейлік тапсырмалар дайында. Тақырып: бөлшектерді қосу және азайту. 1-деңгей: жеңіл, 2-деңгей: орташа, 3-деңгей: күрделі. Әр деңгейге 5 есеп."</div>
+                    <button class="copy-action" onclick="copyPrompt('pr5')"><i class="far fa-copy"></i> Көшіру</button>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <h2 style="margin: 60px 0 20px; font-weight: 800;"><i class="fas fa-book-open" style="color: var(--primary);"></i> 2. Сабақ жоспары және Деңгейлік тапсырмалар</h2>
-    <div class="prompts-grid">
-        <div class="card">
-            <span class="platform-badge platform-chatgpt">ChatGPT</span>
-            <div class="card-title">8-сынып: Квадрат теңдеулер (Толық жоспар)</div>
-            <div class="card-desc">Кіріспеден бағалауға дейінгі толық сабақ құрылымы.</div>
-            <div class="prompt-preview" id="pr4">"8-сыныпқа арналған математика сабағының жоспарын құрастыр. Тақырып: квадрат теңдеулер. Құрылымы: Кіріспе, Жаңа тақырып, Практика, Топтық жұмыс, Қорытынды, Бағалау."</div>
-            <button class="copy-action" onclick="copyPrompt('pr4')"><i class="far fa-copy"></i> Көшіру</button>
-        </div>
-
-        <div class="card">
-            <span class="platform-badge" style="background:#4285f4; color:white;">Gemini / Copilot</span>
-            <div class="card-title">3 Деңгейлі Тапсырмалар (Бөлшектер)</div>
-            <div class="card-desc">Оқушының қабілетіне қарай A, B, C деңгейлеріне бөлу.</div>
-            <div class="prompt-preview" id="pr5">"6-сыныпқа арналған деңгейлік тапсырмалар дайында. Тақырып: бөлшектерді қосу және азайту. 1-деңгей: жеңіл, 2-деңгей: орташа, 3-деңгей: күрделі. Әр деңгейге 5 есеп."</div>
-            <button class="copy-action" onclick="copyPrompt('pr5')"><i class="far fa-copy"></i> Көшіру</button>
-        </div>
-    </div>
-
-    <h2 style="margin: 60px 0 20px; font-weight: 800;"><i class="fas fa-gamepad" style="color: var(--primary);"></i> 3. Интерактивті және Тест тапсырмалары</h2>
-    <div class="prompts-grid">
-        <div class="card">
-            <span class="platform-badge" style="background:#1e293b; color:white;">Desmos / GeoGebra</span>
-            <div class="card-title">Функция графиктері мен Парабола</div>
-            <div class="card-desc">График арқылы түбірлерді және төбесін табу.</div>
-            <div class="prompt-preview" id="pr6">y = x^2 - 4x + 3
+        <!-- 3 баған -->
+        <div class="column">
+            <h2><i class="fas fa-gamepad" style="color: var(--primary);"></i> 3. Интерактивті тест</h2>
+            <div class="prompts-grid">
+                <div class="card">
+                    <span class="platform-badge" style="background:#1e293b; color:white;">Desmos / GeoGebra</span>
+                    <div class="card-title">Функция графиктері мен Парабола</div>
+                    <div class="card-desc">График арқылы түбірлерді және төбесін табу.</div>
+                    <div class="prompt-preview" id="pr6">y = x^2 - 4x + 3
 Тапсырма: параболаның төбесін табу және түбірлерін анықтау.</div>
-            <button class="copy-action" onclick="copyPrompt('pr6')"><i class="far fa-copy"></i> Көшіру</button>
-        </div>
-
-        <div class="card">
-            <span class="platform-badge" style="background:#8854c0; color:white;">Quizizz / Kahoot</span>
-            <div class="card-title">Пропорция тақырыбына онлайн тест</div>
-            <div class="card-desc">4 нұсқалы 10 сұрақтан тұратын тест дайындау.</div>
-            <div class="prompt-preview" id="pr7">"7-сыныпқа арналған математика тестін құрастыр. Тақырып: пропорция. 10 сұрақ, 4 жауап нұсқасы. Дұрыс жауаптарын көрсет."</div>
-            <button class="copy-action" onclick="copyPrompt('pr7')"><i class="far fa-copy"></i> Көшіру</button>
+                    <button class="copy-action" onclick="copyPrompt('pr6')"><i class="far fa-copy"></i> Көшіру</button>
+                </div>
+                <div class="card">
+                    <span class="platform-badge" style="background:#8854c0; color:white;">Quizizz / Kahoot</span>
+                    <div class="card-title">Пропорция тақырыбына тест</div>
+                    <div class="card-desc">4 нұсқалы 10 сұрақтан тұратын тест дайындау.</div>
+                    <div class="prompt-preview" id="pr7">"7-сыныпқа арналған математика тестін құрастыр. Тақырып: пропорция. 10 сұрақ, 4 жауап нұсқасы. Дұрыс жауаптарын көрсет."</div>
+                    <button class="copy-action" onclick="copyPrompt('pr7')"><i class="far fa-copy"></i> Көшіру</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
