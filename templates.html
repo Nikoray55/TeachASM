@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="kk">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,81 +14,132 @@
             --secondary-color: #f1f5f9;
             --text-main: #1e293b;
             --text-muted: #64748b;
-            --glass-bg: rgba(255, 255, 255, 0.8);
-            --glass-border: rgba(255, 255, 255, 0.4);
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.5);
         }
 
         body {
             margin: 0;
             font-family: 'Montserrat', sans-serif;
             background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
-            min-height: 100vh;
+            height: 100vh; /* Бүкіл экранды алу */
+            overflow: hidden; /* Негізгі беттің айналдырғышын(scroll) алып тастау */
+            display: flex;
+            flex-direction: column;
         }
 
         /* Navbar стилі */
         .navbar {
             background: white;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 15px 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
+            box-sizing: border-box;
         }
+
         .nav-flex {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text-main); }
-        .logo span { color: var(--primary-color); }
-        .nav-links { list-style: none; display: flex; gap: 25px; margin: 0; }
-        .nav-links a { text-decoration: none; color: var(--text-main); font-weight: 600; transition: 0.3s; }
-        .nav-links a:hover, .nav-links a.active { color: var(--primary-color); }
 
-        /* Негізгі Контент */
-        .template-section {
-            padding: 120px 20px 60px;
-            display: flex;
-            justify-content: center;
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-main);
         }
 
-        .glass-card {
-            max-width: 700px;
+        .logo span {
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 600;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-color);
+        }
+
+        /* Бір экрандық (Dashboard) дизайн */
+        .dashboard-container {
+            display: flex;
+            flex: 1; /* Қалған барлық биіктікті алады */
+            max-width: 1400px;
+            margin: 70px auto 0; /* Navbar астынан бастау */
             width: 100%;
+            padding: 20px;
+            gap: 20px;
+            box-sizing: border-box;
+            height: calc(100vh - 70px);
+        }
+
+        /* Сол жақ және оң жақ панельдер */
+        .panel {
             background: var(--glass-bg);
             backdrop-filter: blur(15px);
             border: 1px solid var(--glass-border);
-            padding: 40px;
-            border-radius: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-            text-align: center;
-            animation: fadeIn 0.8s ease-out;
+            border-radius: 20px;
+            padding: 30px;
+            overflow-y: auto; /* Тек ішкі панельде айналдыру(scroll) болады */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Скролл дизайны */
+        .panel::-webkit-scrollbar {
+            width: 6px;
+        }
+        .panel::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        .left-panel {
+            flex: 1; /* Жартысы немесе сәл аз */
+            min-width: 350px;
+            max-width: 450px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .right-panel {
+            flex: 2; /* Оң жақ үлкенірек болуы үшін */
         }
 
         /* Іздеу аймағы */
         .search-wrapper {
             position: relative;
-            margin: 30px 0;
+            margin: 20px 0;
         }
 
         .custom-input {
             width: 100%;
-            padding: 18px 25px;
-            padding-right: 60px;
-            border-radius: 18px;
+            padding: 15px 20px;
+            padding-right: 50px;
+            border-radius: 15px;
             border: 2px solid transparent;
             background: white;
             font-family: 'Montserrat';
-            font-size: 1.1rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            font-size: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
             transition: all 0.3s ease;
             box-sizing: border-box;
         }
@@ -100,7 +152,7 @@
 
         .search-icon {
             position: absolute;
-            right: 25px;
+            right: 20px;
             top: 50%;
             transform: translateY(-50%);
             color: #94a3b8;
@@ -109,17 +161,17 @@
 
         /* Нәтижелер тізімі */
         .results-container {
+            flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-top: 20px;
-            text-align: left;
+            gap: 10px;
+            margin-top: 15px;
         }
 
         .result-item {
             background: white;
-            padding: 15px 20px;
-            border-radius: 15px;
+            padding: 12px 15px;
+            border-radius: 12px;
             text-decoration: none;
             color: var(--text-main);
             font-weight: 600;
@@ -128,6 +180,7 @@
             justify-content: space-between;
             align-items: center;
             transition: 0.3s;
+            font-size: 0.9rem;
             animation: slideUp 0.4s ease-out forwards;
         }
 
@@ -142,20 +195,16 @@
             transform: translateX(5px);
         }
 
-        .result-item i.fa-file-pdf { color: #ef4444; margin-right: 10px; }
+        .result-item i.fa-file-pdf { color: #ef4444; margin-right: 8px; }
         .result-item i.fa-download { color: var(--primary-color); opacity: 0.7; }
 
-        .status-badge {
-            font-size: 0.95rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--primary-color);
-        }
+        .status-badge { font-size: 0.9rem; font-weight: 700; color: var(--primary-color); margin-bottom: 5px; }
 
         .hint-text {
-            margin-top: 25px;
-            font-size: 0.85rem;
+            margin-top: 20px;
+            font-size: 0.8rem;
             color: var(--text-muted);
+            text-align: center;
         }
 
         .hint-text span {
@@ -164,117 +213,273 @@
             color: var(--primary-color);
             font-weight: 600;
         }
+
+        /* Көрнекіліктер (Оң жақ) */
+        .section-title {
+            font-size: 1.6rem;
+            color: #1e293b;
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-weight: 800;
+        }
+
+        .section-subtitle {
+            color: #64748b;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+
+        .files-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Автоматты түрде сыюына қарай */
+            gap: 15px;
+        }
+
+        .file-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s, box-shadow 0.2s;
+            min-height: 120px;
+        }
+
+        .file-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .file-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 10px;
+            word-break: break-word;
+        }
+
+        .download-link {
+            background-color: #2e7d32;
+            color: white;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-align: center;
+            transition: 0.2s;
+        }
+
+        .download-link:hover {
+            background-color: #1b5e20;
+        }
+
+        /* Телефон және кіші экрандарға бейімдеу */
+        @media (max-width: 992px) {
+            body {
+                height: auto;
+                overflow: auto; /* Мобильдіде кәдімгі scroll қайтарамыз */
+            }
+            
+            .dashboard-container {
+                flex-direction: column;
+                height: auto;
+                margin-top: 100px; /* Телефондағы navbar көп орын алуы мүмкін */
+            }
+
+            .left-panel, .right-panel {
+                max-width: 100%;
+            }
+
+            .nav-flex {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+        }
     </style>
 </head>
+
 <body>
 
-<nav class="navbar">
-    <div class="nav-flex">
-        <div class="logo">Teach<span>ASM</span></div>
-        <ul class="nav-links">
-            <li><a href="index.html">Басты бет</a></li>
-            <li><a href="links.html">Сілтемелер</a></li>
-            <li><a href="prompts.html">Промттар</a></li>
-            <li><a href="templates.html" class="active">Шаблондар</a></li>
-            <li><a href="contact.html">Байланыс</a></li>
-        </ul>
-    </div>
-</nav>
+    <nav class="navbar">
+        <div class="nav-flex">
+            <div class="logo">Teach<span>ASM</span></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Басты бет</a></li>
+                <li><a href="links.html">Сілтемелер</a></li>
+                <li><a href="prompts.html">Промттар</a></li>
+                <li><a href="templates.html" class="active">Шаблондар</a></li>
+                <li><a href="contact.html">Байланыс</a></li>
+            </ul>
+        </div>
+    </nav>
 
-<section class="template-section">
-    <div class="glass-card">
-        <h2 style="color: var(--text-main); font-size: 1.8rem; font-weight: 800; margin: 0;">Сабақ жоспарларын іздеу</h2>
-        <p style="color: var(--text-muted); margin-top: 10px;">Керекті тақырыпты жазыңыз, біз файлды тауып береміз</p>
+    <!-- Бір экрандық (Dashboard) құрылым -->
+    <main class="dashboard-container">
+        
+        <!-- Сол жақ: Іздеу панелі -->
+        <div class="panel left-panel">
+            <h2 class="section-title">Сабақ жоспарлары</h2>
+            <p class="section-subtitle" style="margin-bottom: 0;">Керекті тақырыпты жазыңыз</p>
 
-        <div class="search-wrapper">
-            <input type="text" id="topic-input" class="custom-input" 
-                   placeholder="Мысалы: натурал немесе есеп..." 
-                   oninput="smartSearch()">
-            <i class="fas fa-search search-icon" id="search-icon"></i>
+            <div class="search-wrapper">
+                <input type="text" id="topic-input" class="custom-input" placeholder="Мысалы: натурал немесе есеп..."
+                    oninput="smartSearch()">
+                <i class="fas fa-search search-icon" id="search-icon"></i>
+            </div>
+
+            <div id="status-msg" class="status-badge"></div>
+
+            <div id="results-list" class="results-container"></div>
+
+            <p class="hint-text">
+                Кеңес: <b><span onclick="setTopic('натурал')">натурал</span></b>,
+                <b><span onclick="setTopic('есеп')">есеп</span></b>,
+                <b><span onclick="setTopic('бөлгіш')">бөлгіш</span></b>
+            </p>
         </div>
 
-        <div id="status-msg" class="status-badge"></div>
-        
-        <div id="results-list" class="results-container"></div>
+        <!-- Оң жақ: Көрнекіліктер панелі -->
+        <div class="panel right-panel">
+            <h2 class="section-title">Көрнекіліктер</h2>
+            <p class="section-subtitle">Сабаққа қажетті файлдар мен көрнекі құралдар</p>
 
-        <p class="hint-text">
-            Кеңес: <b><span onclick="setTopic('натурал')">натурал</span></b>, 
-            <b><span onclick="setTopic('есеп')">есеп</span></b>, 
-            <b><span onclick="setTopic('бөлгіш')">бөлгіш</span></b>
-        </p>
-    </div>
-</section>
+            <div class="files-grid">
+                <div class="file-card">
+                    <div class="file-name">тиын жинау.pptx</div>
+                    <a href="тиын жинау.pptx" class="download-link" download>Жүктеп алу</a>
+                </div>
 
-<script>
-    // Барлық файлдар базасы (Толық тізім)
-    const fileDatabase = [
-        "Бөлінгіштіктің  негізгі  қасиеті.pdf",
-        "Дәреже.pdf",
-        "Ең  кіші  ортақ  еселік.pdf",
-        "Ең  үлкен  ортақ  бөлгіш.pdf",
-        "ЕҮОБ пен ЕКОЕ табуға есептер  шығару.pdf",
-        "Жай  бөлшектің  негізгі  қасиеті.pdf",
-        "Кесінді.pdf",
-        "Координаталық сәуле.pdf",
-        "Мәтінді есептерді  теңдеудің  көмегімен  шығару.pdf",
-        "Натурал сандарды азайту.pdf",
-        "Натурал сандарды жазу.pdf",
-        "Натурал сандарды қосу.pdf",
-        "Натурал сандарды салыстыру.pdf",
-        "Натурал сандарды 2,5, 10-ға  бөлінгіштік  белгілері.pdf",
-        "Натурал сандарды 3,9 -ға  бөлінгіштік  белгілері.pdf",
-        "Натурал сандарды жай  көбейткіштерге  жіктеу.pdf",
-        "Натурал сандарды қөбейту және бөлу.pdf",
-        "Натурал сандарды бөлгіші  және  еселігі.pdf",
-        "Өрнектерді ықшамдау.pdf",
-        "Есеп шығару.pdf"
-    ];
+                <div class="file-card">
+                    <div class="file-name">Ұзындық. Индирасабақ.pdf</div>
+                    <a href="Ұзындық. Индирасабақ.pdf" class="download-link" download>Жүктеп алу</a>
+                </div>
 
-    function smartSearch() {
-        const input = document.getElementById('topic-input').value.trim().toLowerCase();
-        const resultsArea = document.getElementById('results-list');
-        const status = document.getElementById('status-msg');
-        const icon = document.getElementById('search-icon');
-        
-        resultsArea.innerHTML = ""; // Ескі нәтижелерді өшіру
+                <div class="file-card">
+                    <div class="file-name">Гир әдісі.pptx</div>
+                    <a href="Гир әдісі.pptx" class="download-link" download>Жүктеп алу</a>
+                </div>
 
-        if (input.length > 1) {
-            icon.style.color = '#2e7d32';
-            
-            // Сәйкес файлдарды табу
-            const matchedFiles = fileDatabase.filter(fileName => 
-                fileName.toLowerCase().includes(input)
-            );
+                <div class="file-card">
+                    <div class="file-name">Сандықтар.pdf</div>
+                    <a href="Сандықтар.pdf" class="download-link" download>Жүктеп алу</a>
+                </div>
 
-            if (matchedFiles.length > 0) {
-                status.innerHTML = `<i class="fas fa-check-circle"></i> ${matchedFiles.length} файл табылды:`;
-                
-                matchedFiles.forEach(fileName => {
-                    const link = document.createElement('a');
-                    link.href = fileName;
-                    link.download = fileName;
-                    link.className = 'result-item';
-                    link.innerHTML = `
+                <div class="file-card">
+                    <div class="file-name">СКАЧАТЬ МАТЕМАТИЧЕСКИЕ ГРИБОЧКИ.pdf</div>
+                    <a href="СКАЧАТЬ МАТЕМАТИЧЕСКИЕ ГРИБОЧКИ.pdf" class="download-link" download>Жүктеп алу</a>
+                </div>
+
+                <div class="file-card">
+                    <div class="file-name">Квест.pptx</div>
+                    <a href="Квест.pptx" class="download-link" download>Жүктеп алу</a>
+                </div>
+
+                <div class="file-card">
+                    <div class="file-name">Анимацияланған қораптар.pptx</div>
+                    <a href="Анимацияланған қораптар.pptx" class="download-link" download>Жүктеп алу</a>
+                </div>
+
+                <div class="file-card">
+                    <div class="file-name">Бәйге 1-10 балл.pdf</div>
+                    <a href="Бәйге 1-10 балл.pdf" class="download-link" download>Жүктеп алу</a>
+                </div>
+
+                <div class="file-card">
+                    <div class="file-name">киндер.pptx</div>
+                    <a href="киндер.pptx" class="download-link" download>Жүктеп алу</a>
+                </div>
+
+                <div class="file-card">
+                    <div class="file-name">лампа.pptx</div>
+                    <a href="лампа.pptx" class="download-link" download>Жүктеп алу</a>
+                </div>
+
+                <div class="file-card">
+                    <div class="file-name">Бұлттар цифры.pdf</div>
+                    <a href="Бұлттар цифры.pdf" class="download-link" download>Жүктеп алу</a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Барлық файлдар базасы (Толық тізім)
+        const fileDatabase = [
+            "Бөлінгіштіктің  негізгі  қасиеті.pdf",
+            "Дәреже.pdf",
+            "Ең  кіші  ортақ  еселік.pdf",
+            "Ең  үлкен  ортақ  бөлгіш.pdf",
+            "ЕҮОБ пен ЕКОЕ табуға есептер  шығару.pdf",
+            "Жай  бөлшектің  негізгі  қасиеті.pdf",
+            "Кесінді.pdf",
+            "Координаталық сәуле.pdf",
+            "Мәтінді есептерді  теңдеудің  көмегімен  шығару.pdf",
+            "Натурал сандарды азайту.pdf",
+            "Натурал сандарды жазу.pdf",
+            "Натурал сандарды қосу.pdf",
+            "Натурал сандарды салыстыру.pdf",
+            "Натурал сандарды 2,5, 10-ға  бөлінгіштік  белгілері.pdf",
+            "Натурал сандарды 3,9 -ға  бөлінгіштік  белгілері.pdf",
+            "Натурал сандарды жай  көбейткіштерге  жіктеу.pdf",
+            "Натурал сандарды қөбейту және бөлу.pdf",
+            "Натурал сандарды бөлгіші  және  еселігі.pdf",
+            "Өрнектерді ықшамдау.pdf",
+            "Есеп шығару.pdf"
+        ];
+
+        function smartSearch() {
+            const input = document.getElementById('topic-input').value.trim().toLowerCase();
+            const resultsArea = document.getElementById('results-list');
+            const status = document.getElementById('status-msg');
+            const icon = document.getElementById('search-icon');
+
+            resultsArea.innerHTML = ""; // Ескі нәтижелерді өшіру
+
+            if (input.length > 1) {
+                icon.style.color = '#2e7d32';
+
+                // Сәйкес файлдарды табу
+                const matchedFiles = fileDatabase.filter(fileName =>
+                    fileName.toLowerCase().includes(input)
+                );
+
+                if (matchedFiles.length > 0) {
+                    status.innerHTML = `<i class="fas fa-check-circle"></i> ${matchedFiles.length} файл табылды:`;
+
+                    matchedFiles.forEach(fileName => {
+                        const link = document.createElement('a');
+                        link.href = fileName;
+                        link.download = fileName;
+                        link.className = 'result-item';
+                        link.innerHTML = `
                         <span><i class="fas fa-file-pdf"></i> ${fileName}</span>
                         <i class="fas fa-download"></i>
                     `;
-                    resultsArea.appendChild(link);
-                });
+                        resultsArea.appendChild(link);
+                    });
+                } else {
+                    status.innerHTML = `<span style="color: #64748b;">"${input}" бойынша ештеңе табылмады</span>`;
+                }
             } else {
-                status.innerHTML = `<span style="color: #64748b;">"${input}" бойынша ештеңе табылмады</span>`;
+                icon.style.color = '#94a3b8';
+                status.innerHTML = "";
             }
-        } else {
-            icon.style.color = '#94a3b8';
-            status.innerHTML = "";
         }
-    }
 
-    // Тез жазу функциясы
-    function setTopic(name) {
-        document.getElementById('topic-input').value = name;
-        smartSearch();
-    }
-</script>
-
+        // Тез жазу функциясы
+        function setTopic(name) {
+            document.getElementById('topic-input').value = name;
+            smartSearch();
+        }
+    </script>
 </body>
 </html>
