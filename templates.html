@@ -374,57 +374,57 @@
             <div class="files-grid">
                 <div class="file-card">
                     <div class="file-name">тиын жинау.pptx</div>
-                    <a href="тиын жинау.pptx" class="download-link" download>Жүктеп алу</a>
+                    <a href="тиын%20жинау.pptx" class="download-link" download target="_blank">Жүктеп алу</a>
                 </div>
 
                 <div class="file-card">
                     <div class="file-name">Ұзындық.pdf</div>
-                    <a href="Ұзындық.pdf" class="download-link" download>Жүктеп алу</a>
+                    <a href="Ұзындық.pdf" class="download-link" download target="_blank">Жүктеп алу</a>
                 </div>
 
                 <div class="file-card">
                     <div class="file-name">Гир әдісі.pptx</div>
-                    <a href="Гир әдісі.pptx" class="download-link" download>Жүктеп алу</a>
+                    <a href="Гир%20әдісі.pptx" class="download-link" download target="_blank">Жүктеп алу</a>
                 </div>
 
                 <div class="file-card">
                     <div class="file-name">Сандықтар.pdf</div>
-                    <a href="Сандықтар.pdf" class="download-link" download>Жүктеп алу</a>
+                    <a href="Сандықтар.pdf" class="download-link" download target="_blank">Жүктеп алу</a>
                 </div>
 
                 <div class="file-card">
                     <div class="file-name">МАТЕМАТИЧЕСКИЕ ГРИБОЧКИ.pdf</div>
-                    <a href="СКАЧАТЬ МАТЕМАТИЧЕСКИЕ ГРИБОЧКИ.pdf" class="download-link" download>Жүктеп алу</a>
+                    <a href="СКАЧАТЬ%20МАТЕМАТИЧЕСКИЕ%20ГРИБОЧКИ.pdf" class="download-link" download target="_blank">Жүктеп алу</a>
                 </div>
 
                 <div class="file-card">
                     <div class="file-name">Квест.pptx</div>
-                    <a href="Квест.pptx" class="download-link" download>Жүктеп алу</a>
+                    <a href="Квест.pptx" class="download-link" download target="_blank">Жүктеп алу</a>
                 </div>
 
                 <div class="file-card">
                     <div class="file-name">Анимацияланған қораптар.pptx</div>
-                    <a href="Анимацияланған қораптар.pptx" class="download-link" download>Жүктеп алу</a>
+                    <a href="Анимацияланған%20қораптар.pptx" class="download-link" download target="_blank">Жүктеп алу</a>
                 </div>
 
                 <div class="file-card">
                     <div class="file-name">Бәйге 1-10 балл.pdf</div>
-                    <a href="Бәйге 1-10 балл.pdf" class="download-link" download>Жүктеп алу</a>
+                    <a href="Бәйге%201-10%20балл.pdf" class="download-link" download target="_blank">Жүктеп алу</a>
                 </div>
 
                 <div class="file-card">
                     <div class="file-name">киндер.pptx</div>
-                    <a href="киндер.pptx" class="download-link" download>Жүктеп алу</a>
+                    <a href="киндер.pptx" class="download-link" download target="_blank">Жүктеп алу</a>
                 </div>
 
                 <div class="file-card">
                     <div class="file-name">лампа.pptx</div>
-                    <a href="лампа.pptx" class="download-link" download>Жүктеп алу</a>
+                    <a href="лампа.pptx" class="download-link" download target="_blank">Жүктеп алу</a>
                 </div>
 
                 <div class="file-card">
                     <div class="file-name">Бұлттар цифры.pdf</div>
-                    <a href="Бұлттар цифры.pdf" class="download-link" download>Жүктеп алу</a>
+                    <a href="Бұлттар%20цифры.pdf" class="download-link" download target="_blank">Жүктеп алу</a>
                 </div>
             </div>
         </div>
@@ -477,8 +477,9 @@
 
                     matchedFiles.forEach(fileName => {
                         const link = document.createElement('a');
-                        link.href = fileName;
+                        link.href = encodeURI(fileName);
                         link.download = fileName;
+                        link.target = "_blank";
                         link.className = 'result-item';
                         link.innerHTML = `
                         <span><i class="fas fa-file-pdf"></i> ${fileName}</span>
